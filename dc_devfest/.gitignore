@@ -16,3 +16,4 @@ bin/*
 .kitchen.local.yml
 .chef
 vendor
+*.pem
