@@ -85,6 +85,29 @@ Cool that DNS is instance-1.c.dc-devfest.internal
 
     curl https://sdk.cloud.google.com | bash
 
+
+## Cheffing up
+
+Create local workstation as a chef node:
+
+.chef/client.rb:
+
+    # This is standard ~/.chef/knife.rb stuff:
+    log_level        	:info
+    log_location     	STDOUT
+    chef_server_url  	'https://api.opscode.com/organizations/pdbchef'
+    validation_client_name  'pdbchef-validator'
+    validation_key          "#{ENV['HOME']}/.chef/pdbchef-validator.pem"
+
+    # Need this to create myself as local non-privileged chef client node:
+    node_name        	'workstation_macpro'
+    client_key       	'/Users/pburkholder/Projects/GCE/dc_devfest/.chef/client.pem'
+
+Then `chef-client  -o 'recipe[dc_devfest]' -c .chef/client.rb` to create .chef/client.pem
+
+
+
+
 GCE notes
 ========
 
