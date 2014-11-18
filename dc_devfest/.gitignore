@@ -17,3 +17,4 @@ bin/*
 .chef
 vendor
 *.pem
+validation.rb
