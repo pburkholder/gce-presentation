@@ -1,20 +1,16 @@
 gce = data_bag_item("gce", "service_account")
 timestamp = Time.now.to_i.to_s
 
-file '/tmp/t' do
-  content validation_pem
-end
-
 client = client_rb()
 validation = validation_pem()
 
-gce_instance "http-server-#{timestamp}" do
+gce_instance "appserverB-#{timestamp}" do
   tags ["http-server"]
-  first_boot_json "{\"run_list\": [\"recipe[pdb_motd]\"]}"
+  first_boot_json "{\"run_list\": [\"role[myapp_B_webserver\"]}"
   client_rb client
   validation_pem validation
-# validation_pem(validation_pem)
-# validation_pem(validation_pem())
+# validation_pem(validation_pem) # nil
+# validation_pem(validation_pem()) # nil - what gives?
   client_email gce['client_email']
   key_location gce['key_location']
   project_id gce['project_id']

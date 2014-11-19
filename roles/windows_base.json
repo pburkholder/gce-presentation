@@ -1,0 +1,21 @@
+{
+    "name": "windows_base",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for all Windows servers",
+    "run_list": [
+        "recipe[chef-client::config]",
+        "recipe[chef-client::windows_service]",
+        "recipe[windows::default]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+        "chef_client": {
+            "interval": "300",
+            "splay": "30"
+        }
+    },
+    "override_attributes": {
+    }
+}

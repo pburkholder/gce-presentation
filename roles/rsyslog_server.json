@@ -1,0 +1,16 @@
+{
+    "name": "rsyslog_server",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for a rsyslog server",
+    "run_list": [
+        "recipe[rsyslog::server]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+        
+    },
+    "override_attributes": {
+    }
+}

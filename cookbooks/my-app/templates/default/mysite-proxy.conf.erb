@@ -1,0 +1,56 @@
+# ______________________________________________________________________
+#/ WARNING: This file is maintained by chef. Any edits made directly to \
+#\ this file will be overwritten the next time the chef-client runs.    /
+# ----------------------------------------------------------------------
+#     \
+#      \
+#       .--,--.
+#       `.  ,.'
+#        |___|
+#        :o o:   O
+#       _`~^~'_  |
+#     /'   ^   `[=)
+#   .'  _______ '~|
+#   `(<=|     |= /'
+#       |     |
+#       |_____|
+# ~~~~~~ ===== ~~~~~~~~
+# Managed by Chef for <%= node['hostname'] %>
+
+<VirtualHost *:<%= node['my-app']['balancer']['port'] %>>
+  ServerName <%= node.name %>
+<% unless node['my-app']['balancer']['server_aliases'].empty? -%>
+  ServerAlias <% node['my-app']['balancer']['server_aliases'].each do |a| %><%= a %> <% end %>
+<% end -%>
+
+  # We don't actually want an open proxy
+  ProxyRequests Off
+  <Proxy *>
+    Order deny,allow
+    Deny from all
+  </Proxy>
+
+  # we want a load balancing reverse proxy
+  <Proxy balancer://mysite>
+    <% @web_servers.each_with_index do |ws, index| %>
+    BalancerMember http://<%= ws['ip'] %>:<%= ws['port'] %> route=<%= index %>
+    <% end %>
+    ProxySet maxattempts=<%= @max_attempts %>
+    ProxySet lbmethod=bybusyness
+    Order deny,allow
+    Allow from all
+  </Proxy>
+
+  # preserve host is critical for name-based virtual hosting
+  #ProxyPreserveHost On
+  ProxyPass / balancer://mysite/
+  <% @web_servers.each do |ws| %>
+  ProxyPassReverse / http://<%= ws['ip'] %>:<%= ws['port'] -%>/
+  <% end %>
+
+  LogLevel info
+  ErrorLog /var/log/apache2/<%= node['my-app']['balancer']['server_name'] %>-proxy-error.log
+  CustomLog /var/log/apache2/<%= node['my-app']['balancer']['server_name'] %>-proxy-access.log combined
+
+  RequestHeader set X_FORWARDED_PROTO 'http'
+</VirtualHost>

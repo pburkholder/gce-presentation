@@ -1,0 +1,16 @@
+{
+    "name": "centos_base",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for all centos servers",
+    "run_list": [
+        "recipe[yum-epel::default]",
+        "role[server_base]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "name": "postgresql93",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for a Postgresql Server",
+    "run_list": [
+        "recipe[postgresql::server]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+        "postgresql": {
+            "enable_pgdg_yum": true,
+            "version": "9.3",
+            "dir": "/var/lib/pgsql/9.3/data",
+            "config": {
+                "listen_addresses": "0.0.0.0"
+            }
+        }
+    },
+    "override_attributes": {
+        "postgresql": {
+            "client": {
+                "packages": ["postgresql93", "postgresql93-devel"]
+            },
+            "server": {
+                "packages": ["postgresql93-server"],
+                "service_name": "postgresql-9.3"
+            },
+            "contrib": {
+                "packages": ["postgresql93-contrib"]
+            }
+        }
+    }
+}

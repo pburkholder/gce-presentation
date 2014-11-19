@@ -1,0 +1,20 @@
+{
+    "name": "splunk-server",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for a splunk server",
+    "run_list": [
+        "recipe[splunk::server]",
+        "recipe[splunk::unix-app]",
+        "recipe[splunk::deploy-mon-app]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+        "splunk": {
+            "auth": "opscode:opscode"
+        }
+    },
+    "override_attributes": {
+    }
+}

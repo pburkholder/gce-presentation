@@ -1,0 +1,20 @@
+{
+    "name": "tomcat",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for a tomcat server",
+    "run_list": [
+        "recipe[tomcat::default]",
+        "recipe[tomcat::users]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+        "tomcat": {
+            "java_options": "${JAVA_OPTS} -Xmx128M -Djava.awt.headless=true",
+            "keytool": "/usr/bin/keytool"
+        }
+    },
+    "override_attributes": {
+    }
+}

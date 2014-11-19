@@ -1,0 +1,35 @@
+{
+    "name": "cobbler",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for a cobbler server",
+    "run_list": [
+        "recipe[cobbler::default]",
+        "recipe[cobbler::snat]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+        "cobbler": {
+            "web_users": {
+                "opscode": "93bb5227c1ee0e2435b76c0da609d576"
+            },
+            "dhcp": {
+                "domain": "chef-demo.com",
+                "subnet": "192.168.243.0",
+                "routers": "192.168.243.1",
+                "domain_name_servers": "192.168.243.1",
+                "subnet_mask":  "255.255.255.0",
+                "range": ["192.168.243.200", "192.168.243.250"],
+                "domain_name_servers": "192.168.243.1"
+            }
+        }
+    },
+    "override_attributes": {
+      "cobbler": {
+            "dhcp": {
+                "range": ["192.168.243.200", "192.168.243.250"]
+            }
+        }  
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "name": "postgresql",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for a Postgresql 9.2 Server",
+    "run_list": [
+        "recipe[postgresql::server]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+        "postgresql": {
+            "enable_pgdg_yum": true,
+            "version": "9.2",
+            "dir": "/var/lib/pgsql/9.2/data",
+            "config": {
+                "listen_addresses": "0.0.0.0"
+            }
+        }
+    },
+    "override_attributes": {
+        "postgresql": {
+            "client": {
+                "packages": ["postgresql92", "postgresql92-devel"]
+            },
+            "server": {
+                "packages": ["postgresql92-server"],
+                "service_name": "postgresql-9.2"
+            },
+            "contrib": {
+                "packages": ["postgresql92-contrib"]
+            }
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "name": "jenkins",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for a jenkins server",
+    "run_list": [
+        "recipe[my-jenkins]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+        "jenkins": {
+            "server": {
+                "war_checksum": "04c070e7cb71aea8e53e1422b765e72a0e932c6db0c85b46b4286d9d15954d48"
+            }
+        }
+    },
+    "override_attributes": {
+    }
+}

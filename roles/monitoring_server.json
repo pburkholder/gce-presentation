@@ -1,0 +1,60 @@
+{
+    "name": "monitoring_server",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for a rsyslogd, collectd and graphite server",
+    "run_list": [
+        "role[rsyslog_server]",
+        "recipe[nagios::server]",
+        "recipe[nagios_plugins]",
+        "recipe[graphite::default]",
+        "recipe[graphite_dashboard]",
+        "recipe[collectd::server]",
+        "role[collectd_plugins]",
+        "recipe[collectd-plugins::types_db]",
+        "recipe[collectd-carbon::default]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+        "nagios": {
+            "server_auth_method": "htauth",
+            "server_role": "monitoring_server",
+            "users_databag": "nagios_users",
+            "users_databag_group": "admins",
+            "notifications_enabled": 0,
+            "default_contact_groups": ["admins"],
+            "timezone": "US/Eastern"
+        },
+        "graphite": {
+            "django_root": "/usr/lib/python2.7/dist-packages/django",
+            "password": "opscode",
+            "listen_port": "8080",
+            "storage_schemas": [    
+                {
+                    "name": "carbon",
+                    "pattern": "\/^carbon.\/",
+                    "retentions": "1m:10d"
+                },
+                {
+                    "name": "agents",
+                    "pattern": "\/^agents.\/",
+                    "retentions": "10s:5d"
+                },
+                {
+                    "name": "collectd",
+                    "pattern": "\/^collectd.\/",
+                    "retentions": "10s:5d"
+                }
+            ]
+        },
+        "collectd": {
+            "types_db": ["/usr/share/collectd/types.db","/etc/collectd/my_types.db"]
+        },
+        "collectd_carbon": {
+            "TypesDB": ["/usr/share/collectd/types.db", "/etc/collectd/my_types.db"]
+        }
+    },
+    "override_attributes": {
+    }
+}

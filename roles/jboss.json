@@ -1,0 +1,22 @@
+{
+    "name": "jboss",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for a jboss server",
+    "run_list": [
+        "recipe[java]",
+        "recipe[jboss::standalone]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+        "java": {
+            "install_flavor": "oracle",
+            "oracle": {
+                "accept_oracle_download_terms": true
+            }
+        }
+    },
+    "override_attributes": {
+    }
+}

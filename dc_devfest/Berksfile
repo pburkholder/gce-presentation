@@ -3,3 +3,4 @@ source "https://supermarket.getchef.com"
 metadata
 cookbook 'pdb_motd', git:'https://github.com/pburkholder/pdb_motd.git'
 cookbook 'gce', path:'../../google-compute-engine'
+cookbook 'my-app', path:'../cookbooks/my-app'

@@ -1,0 +1,23 @@
+{
+    "name": "collectd_plugins",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for collectd plugins",
+    "run_list": [
+        "recipe[collectd-plugins::syslog]",
+        "recipe[collectd-plugins::cpu]",
+        "recipe[collectd-plugins::df]",
+        "recipe[collectd-plugins::disk]",
+        "recipe[collectd-plugins::interface]",
+        "recipe[collectd-plugins::memory]",
+        "recipe[collectd-plugins::swap]",
+        "recipe[collectd-plugins::load]",
+        "recipe[collectd-plugins::processes]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+    },
+    "override_attributes": {
+    }
+}

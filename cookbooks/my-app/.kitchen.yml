@@ -1,0 +1,30 @@
+---
+# driver_plugin: docker
+driver_plugin: vagrant
+driver_config:
+ network:
+    - - forwarded_port
+      - guest: 8080
+        host: 8080
+    - - forwarded_port
+      - guest: 80
+        host: 8081
+  # provision_command: curl -L https://www.getchef.com/chef/install.sh | bash
+ require_chef_omnibus: true
+  # socket: 'tcp://192.168.42.43:4243'
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-12.04
+    run_list:
+      - recipe[apt::default]
+    driver:
+     box: chef/ubuntu-12.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[my-app::default]
+    attributes:

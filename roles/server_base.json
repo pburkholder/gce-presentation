@@ -1,0 +1,52 @@
+{
+    "name": "server_base",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for all servers",
+    "run_list": [
+        "recipe[chef-client::config]",
+        "recipe[chef-client::service]",
+        "recipe[users::default]",
+        "recipe[sudo::default]",
+        "recipe[hosts::default]",
+        "recipe[openssh::default]",
+        "recipe[postfix::default]",
+        "recipe[ntp::default]",
+        "recipe[resolver::default]",
+        "role[push-jobs-client]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+        "chef_client": {
+            "interval": "300",
+            "splay": "30",
+            "init_style": "upstart",
+            "config": {
+                "log_location": "\"/var/log/chef-client.log\"",
+                "log_level": "info"
+            }
+        },
+    	"authorization": {
+            "sudo": {
+                "groups": ["admin", "adm", "wheel", "sysadmin"],
+                "users": ["vagrant", "ubuntu"],
+                "passwordless": "true"
+            }
+    	},
+        "openssh": {
+            "Port": "22",
+            "PermitRootLogin": "no",
+            "X11Forwarding": "no",
+            "PasswordAuthentication": "no"
+        },
+        "resolver": {
+            "nameservers": [
+                "8.8.8.8",
+                "8.8.4.4"
+            ]
+        }
+    },
+    "override_attributes": {
+    }
+}

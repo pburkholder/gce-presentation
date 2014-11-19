@@ -1,0 +1,22 @@
+{
+    "name": "monitoring_agent",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for a rsyslogd, collectd and nagios agent/client",
+    "run_list": [
+        "role[rsyslog_client]",
+        "role[collectd_plugins]",
+        "recipe[collectd::client]",
+        "recipe[nagios]",
+        "recipe[nagios_plugins]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+        "nagios": {
+            "server_role": "monitoring_server"
+        }
+    },
+    "override_attributes": {
+    }
+}

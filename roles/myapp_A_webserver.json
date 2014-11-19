@@ -1,0 +1,23 @@
+{
+    "name": "myapp_A_webserver",
+    "chef_type": "role",
+    "json_class": "Chef::Role",
+    "description": "Role for a myapp webserver",
+    "run_list": [
+        "recipe[my-app::application]",
+        "recipe[my-app::webserver]"
+    ],
+    "env_run_lists" : {
+    },
+    "default_attributes": {
+        "my-app": {
+            "application": {
+                "package": "mysite-A.tar.gz",
+                "package_url": "http://demo-framework.s3.amazonaws.com/mysite-A.tar.gz",
+                "package_sum": "73e5cf3287e4d903d3828da5be1ab228ea33152447551b4e489e659268f643b2"
+            }
+        }
+    },
+    "override_attributes": {
+    }
+}

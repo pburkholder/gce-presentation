@@ -1,0 +1,14 @@
+[MODE]
+TESTING: false
+DEBUG: true
+DEV: true
+TEMPLATE_DEBUG: true
+LOG_LEVEL: DEBUG
+
+[DATABASE]
+ENGINE: mysql
+NAME: <%= node['my-app']['database']['db_schema_name'] %>
+USER: <%= node['my-app']['database']['db_user'] %>
+PASSWORD: <%= node['my-app']['database']['db_pass'] %>
+HOST: <%= @db_host %>
+PORT: 3306
