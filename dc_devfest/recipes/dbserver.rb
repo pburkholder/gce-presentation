@@ -1,5 +1,3 @@
-dbserver.rb
-
 gce = data_bag_item("gce", "service_account")
 timestamp = Time.now.to_i.to_s
 

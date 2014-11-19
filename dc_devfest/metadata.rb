@@ -7,5 +7,5 @@ description      'Installs/Configures dc_devfest'
 long_description 'Installs/Configures dc_devfest'
 version          '0.2.12'
 
-depends 'gce', '= 0.3.3'
+depends 'gce', '>= 0.3.3'
 depends 'pdb_motd'

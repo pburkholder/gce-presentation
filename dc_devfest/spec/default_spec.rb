@@ -18,7 +18,4 @@ describe 'dc_devfest::default' do
     expect(chef_run).to be
   end
 
-  it '' do
-    expect(chef_run).to create_file('/tmp/t').with_content(/asldfj/)
-  end
 end
