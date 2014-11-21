@@ -1,5 +1,8 @@
 # dc_devfest
 
+chef-client -l debug -z -r 'dc_devfest::database' -c .chef/client.rb -E dev
+chef-client -l debug -z -r 'dc_devfest::default' -c .chef/client.rb -E prod
+
 TODO: Enter the cookbook description here.
 
 knife data bag create  gce

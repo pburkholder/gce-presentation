@@ -38,13 +38,6 @@ else
   db_host = db['ipaddress']
 end
 
-# create the config ini from a template
-template '/opt/conf/mysite/mysite.ini' do
-  variables(
-    :db_host => db_host
-  )
-end
-
 mysite_archive = File.join(Chef::Config[:file_cache_path], node['my-app']['application']['package'])
 
 # Clean up for rollbacks
@@ -72,6 +65,20 @@ libarchive_file node['my-app']['application']['package'] do
   extract_to '/opt'
   owner 'root'
   group 'root'
+  action :nothing
+end
+
+# create the config ini from a template
+template '/opt/conf/mysite/mysite.ini' do
+  variables(
+    :db_host => db_host
+  )
+  notifies :run, 'execute[wait_for_msyql]', :immediately
+end
+
+execute 'wait_for_msyql' do
+  timeout 300
+  command "while true; do nc -vz db_host 3306 && break; sleep 1; done"
   action :nothing
   notifies :run, 'execute[syncdb]', :immediately
 end

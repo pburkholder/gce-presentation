@@ -4,13 +4,11 @@ env = node.environment
 client = client_rb(env)
 validation = validation_pem()
 
-Chef::Log.info("Whoopla env: #{env} and #{node.environment}")
 node['dc_devfest']['database_instances'].times do |instance_index|
   gce_instance "#{env}-database-#{instance_index}" do
     boot_disk_image node['dc_devfest']['boot_disk_image']
     tags ["database"]
     first_boot_json "{\"run_list\": [\"role[debian_base]\",\"recipe[my-app::database]\"]}"
-
     # boilerplate:
     client_rb client
     validation_pem validation
