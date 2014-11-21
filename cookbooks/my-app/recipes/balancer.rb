@@ -16,13 +16,15 @@ include_recipe 'apache2::mod_headers'
 
 # Fetch webservers with partial_search
 if node['my-app']['balancer']['webservers'].empty?
-  Chef::Log.info('Using search to find webservers for load balancer')
+  query = 'recipes:my-app\:\:webserver AND chef_environment:' + node.chef_environment}
+
+  Chef::Log.info('Using search to find webservers for load balancer: ' + query)
   web_servers = partial_search(
-    :node, "recipes:my-app\:\:webserver AND chef_environment:#{node.chef_environment}",
+    :node, query, 
     :keys => { 'name' => ['name'],
               'ip'   => ['ipaddress'],
               'port' => ['my-app', 'webserver', 'apache_port']
-            })
+    })
 else
   Chef::Log.info('web servers specified')
   web_servers = node['my-app']['balancer']['webservers']
