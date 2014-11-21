@@ -6,7 +6,7 @@ validation = validation_pem()
 
 gce_instance "webserver-#{timestamp}" do
   tags ["http-server"]
-  first_boot_json "{\"run_list\": [\"recipe[my-app::balancer\"]}"
+  first_boot_json "{\"run_list\":  [\"role[debian_base]\",\"recipe[my-app::balancer]\"]}"
   client_rb client
   validation_pem validation
 # validation_pem(validation_pem) # nil
@@ -16,7 +16,7 @@ gce_instance "webserver-#{timestamp}" do
   project_id gce['project_id']
   machine_type "n1-standard-1"
   zone_name "us-central1-a"
-  boot_disk_image "chef-motd-debian-7-wheezy-v20141108"
+  boot_disk_image node['dc_devfest']['boot_disk_image']
   service_account_scopes [
     "compute", "userinfo.email", "devstorage.full_control"
   ]

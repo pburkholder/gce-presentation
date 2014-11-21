@@ -1,0 +1,1 @@
+default['dc_devfest']['boot_disk_image']="chef-base-debian-7-wheezy-20141119"

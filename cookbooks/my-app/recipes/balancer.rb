@@ -37,6 +37,6 @@ template '/etc/apache2/sites-available/mysite-proxy.conf' do
 end
 
 # Enable load balancer
-apache_site 'mysite-proxy.conf' do
+apache_site 'mysite-proxy' do
   notifies :restart, 'service[apache2]'
 end

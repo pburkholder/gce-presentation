@@ -26,6 +26,6 @@ template File.join(node['apache']['dir'], '/sites-available/mysite.conf') do
   )
 end
 
-apache_site 'mysite.conf' do
+apache_site 'mysite' do
   action :enable
 end

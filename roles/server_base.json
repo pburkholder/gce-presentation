@@ -4,16 +4,7 @@
     "json_class": "Chef::Role",
     "description": "Role for all servers",
     "run_list": [
-        "recipe[chef-client::config]",
-        "recipe[chef-client::service]",
-        "recipe[users::default]",
-        "recipe[sudo::default]",
-        "recipe[hosts::default]",
-        "recipe[openssh::default]",
-        "recipe[postfix::default]",
-        "recipe[ntp::default]",
-        "recipe[resolver::default]",
-        "role[push-jobs-client]"
+        "recipe[chef-client::config]"
     ],
     "env_run_lists" : {
     },
