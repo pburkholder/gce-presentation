@@ -68,6 +68,7 @@ libarchive_file node['my-app']['application']['package'] do
   owner 'root'
   group 'root'
   action :nothing
+  notifies :run, 'execute[syncdb]'
 end
 
 # create the config ini from a template

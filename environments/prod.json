@@ -1,0 +1,17 @@
+{
+  "name": "prod",
+  "description": "",
+  "cookbook_versions": {
+  },
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
+  "default_attributes": {
+    "dc_devfest": {
+      "database_instances": 3,
+      "myapp-a_instances": 2,
+      "myapp-b_instances": 6
+    }
+  },
+  "override_attributes": {
+  }
+}
