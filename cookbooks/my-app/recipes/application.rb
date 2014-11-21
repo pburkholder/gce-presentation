@@ -33,8 +33,10 @@ if node['my-app']['database']['db_host']
   Chef::Log.info("database host was specified: #{db_host}")
 else
   Chef::Log.info('determining database host via search')
-  db = partial_search(:node, 'recipes:my-app\:\:database',
-    :keys => { 'ipaddress' => ['ipaddress'] }).first
+  db = partial_search(
+    :node, "recipes:my-app\:\:database AND chef_environment:#{node.chef_environment}",
+    :keys => { 'ipaddress' => ['ipaddress'] }
+  ).first
   db_host = db['ipaddress']
 end
 
