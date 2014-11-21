@@ -1,8 +1,9 @@
 gce = data_bag_item("gce", "service_account")
 
-client = client_rb()
-validation = validation_pem()
 env = node.environment
+client = client_rb(env)
+validation = validation_pem()
+
 Chef::Log.info("Whoopla env: #{env} and #{node.environment}")
 node['dc_devfest']['database_instances'].times do |instance_index|
   gce_instance "#{env}-database-#{instance_index}" do
