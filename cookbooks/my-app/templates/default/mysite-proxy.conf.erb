@@ -33,7 +33,8 @@
   # we want a load balancing reverse proxy
   <Proxy balancer://mysite>
     <% @web_servers.each_with_index do |ws, index| %>
-    BalancerMember http://<%= ws['ip'] %>:<%= ws['port'] %> route=<%= index %>
+ #   BalancerMember http://<%= ws['ip'] %>:<%= ws['port'] %> route=<%= index %>
+    BalancerMember http://<%= ws['ip'] %>:8080 route=<%= index %>
     <% end %>
     ProxySet maxattempts=<%= @max_attempts %>
     ProxySet lbmethod=bybusyness
@@ -45,7 +46,8 @@
   #ProxyPreserveHost On
   ProxyPass / balancer://mysite/
   <% @web_servers.each do |ws| %>
-  ProxyPassReverse / http://<%= ws['ip'] %>:<%= ws['port'] -%>/
+ # ProxyPassReverse / http://<%= ws['ip'] %>:<%= ws['port'] -%>/
+  ProxyPassReverse / http://<%= ws['ip'] %>:8080/
   <% end %>
 
   LogLevel info

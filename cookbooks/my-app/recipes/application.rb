@@ -32,7 +32,7 @@ if node['my-app']['database']['db_host']
   db_host = node['my-app']['database']['db_host']
   Chef::Log.info("database host was specified: #{db_host}")
 else
-  query = 'recipes:my-app\:\:database AND chef_environment:' + node.chef_environment
+  query = 'tags:myapp-database AND chef_environment:' + node.chef_environment
   Chef::Log.info('determining database host via search on: ' + query)
   db = partial_search(
     :node, query, :keys => { 'ipaddress' => ['ipaddress'] }
@@ -80,7 +80,7 @@ end
 
 execute 'wait_for_msyql' do
   timeout 300
-  command "while true; do nc -vz #{db_host} 3306 && break; sleep 1; done"
+  command "while true; do nc -vz #{db_host} 3306 && sleep 20 && break; sleep 1; done"
   action :nothing
   notifies :run, 'execute[syncdb]', :immediately
 end

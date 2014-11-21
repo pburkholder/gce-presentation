@@ -7,7 +7,7 @@ validation = validation_pem()
 node['dc_devfest']['database_instances'].times do |instance_index|
   gce_instance "#{env}-database-#{instance_index}" do
     boot_disk_image node['dc_devfest']['boot_disk_image']
-    tags ["database"]
+    tags ["database", "myapp-database"]
     first_boot_json "{\"run_list\": [\"role[debian_base]\",\"recipe[my-app::database]\"]}"
     # boilerplate:
     client_rb client

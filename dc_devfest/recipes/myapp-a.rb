@@ -7,7 +7,7 @@ validation = validation_pem()
 node['dc_devfest']['myapp-a_instances'].times do |instance_index|
   gce_instance "#{env}-myapp-a-#{instance_index}" do
     boot_disk_image node['dc_devfest']['boot_disk_image']
-    tags ["http-server", "myapp", "myapp-a"]
+    tags ["http-server", "myapp", "myapp-appserver", "myapp-a", "myapp-a-appserver"]
     first_boot_json "{\"run_list\":  [\"role[debian_base]\",\"role[myapp_A_webserver]\"]}"
     # boilerplate:
     client_rb client
